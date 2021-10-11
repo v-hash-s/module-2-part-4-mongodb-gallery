@@ -126,7 +126,7 @@ async function getTotal( req: Request){
 async function getPhotosArray(dir: any, pageNumber: number, limit: number){
     let files = await readdir(dir)
     let photos = []
-    for(let i = ((pageNumber - 1) * limit); i < limit; i++){
+    for(let i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < files.length; i++){
         console.log('Photo: ')
         console.log(i, " : ", files[i])
         photos.push(files[i])

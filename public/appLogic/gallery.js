@@ -178,7 +178,7 @@ function getPhotosArray(dir, pageNumber, limit) {
                 case 1:
                     files = _a.sent();
                     photos = [];
-                    for (i = ((pageNumber - 1) * limit); i < limit; i++) {
+                    for (i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < files.length; i++) {
                         console.log('Photo: ');
                         console.log(i, " : ", files[i]);
                         photos.push(files[i]);

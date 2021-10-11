@@ -45,18 +45,16 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 app.use('/upload', formidableMiddleware({
     keepExtensions: true,
-  uploadDir: path.resolve("../static/photos/uploads")
+  // uploadDir: path.resolve("../static/photos/uploads")
+  uploadDir: path.resolve("../static/uploads")
+
 }));
 
 app.use(express.static(path.join(__dirname, '../static/pages')))
-app.use(express.static(path.join(__dirname, '../static/photos/first_page')))
-app.use(express.static(path.join(__dirname, '../static/photos/second_page')))
-app.use(express.static(path.join(__dirname, '../static/photos/third_page')))
-app.use(express.static(path.join(__dirname, '../static/photos/fourth_page')))
-app.use(express.static(path.join(__dirname, '../static/photos/fifth_page')))
+app.use(express.static(path.join(__dirname, '../static/photos')))
 
 const destination = path.join('../../static/photos/uploads');
-app.use(express.static(destination))
+//app.use(express.static(destination))
 app.use('/static/photos/uploads', express.static('../../static/photos/uploads'))
 
 

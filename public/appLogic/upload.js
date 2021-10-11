@@ -6,8 +6,12 @@ var path = require("path");
 var ImageSchema_1 = require("../database/models/ImageSchema");
 function uploadImg(req, res) {
     if (req.files.photo.size != '0') {
-        console.log(req.files.photo.name);
-        fs.rename(req.files.photo.path, path.join(path.resolve("../static/photos", req.files.photo.name)), function () { });
+        console.log(req.files.photo.path);
+        console.log(path.join(path.resolve("../static/photos"), req.files.photo.name));
+        fs.rename(req.files.photo.path, path.join(path.resolve("../static/photos"), req.files.photo.name), function (err) {
+            if (err)
+                throw err;
+        });
         var img_1 = req.files.photo.name;
         fs.stat(path.join(__dirname, "../../static/photos/" + img_1), function (err, data) {
             if (err) {

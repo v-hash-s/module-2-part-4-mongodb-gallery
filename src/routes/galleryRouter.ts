@@ -25,7 +25,7 @@ router.options('/', (req: Request, res: Response) => {
 router.get('/', async function(req: Request, res: Response){
     let pageNumber = req.query.page;
     let limit = req.query.limit
-    if (pageNumber == null && limit == null) {
+    if (pageNumber == null || limit == null) {
         res.redirect(`/gallery?page=1&limit=10`)
     } 
     // let objects = await sendGalleryObject(pageNumber);

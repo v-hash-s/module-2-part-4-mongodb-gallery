@@ -8,8 +8,11 @@ import ImageModel from '../database/models/ImageSchema'
 
 export function uploadImg(req: any, res: any){
     if (req.files.photo.size != '0') {
-        console.log(req.files.photo.name)
-        fs.rename(req.files.photo.path, path.join(path.resolve("../static/photos", req.files.photo.name)), () => { });
+        console.log(req.files.photo.path)
+        console.log(path.join(path.resolve("../static/photos"), req.files.photo.name))
+        fs.rename(req.files.photo.path, path.join(path.resolve("../static/photos"), req.files.photo.name), (err) => {
+            if (err) throw err
+         });
         let img = req.files.photo.name
         fs.stat(path.join(__dirname, `../../static/photos/${img}`), (err: any, data: any) => {
                 if(err){
