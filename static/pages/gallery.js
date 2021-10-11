@@ -12,9 +12,10 @@ const pageSearch = /\?page=[\d+]&limit=[\d+]/g;
 let limit;
 let pageNumber;
 
-if(params.limit){
+if(params.limit !== undefined){
     limit = params.limit
 } else {
+    params.limit = 1
     limit = 1
 }
 

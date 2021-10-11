@@ -57,8 +57,8 @@ router.get('/', function (req, res) {
                 case 0:
                     pageNumber = req.query.page;
                     limit = req.query.limit;
-                    if (pageNumber == null) {
-                        res.redirect("/gallery?page=1&limit=" + limit);
+                    if (pageNumber == null && limit == null) {
+                        res.redirect("/gallery?page=1&limit=10");
                     }
                     // let objects = await sendGalleryObject(pageNumber);
                     // let ejsData = {}

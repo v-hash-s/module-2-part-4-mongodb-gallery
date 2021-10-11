@@ -7,7 +7,6 @@ import ImageModel from '../database/models/ImageSchema'
 
 
 export function uploadImg(req: any, res: any){
-    let collection = db.collection('images')
     if (req.files.photo.size != '0') {
         console.log(req.files.photo.name)
         fs.rename(req.files.photo.path, path.join(path.resolve("../static/photos", req.files.photo.name)), () => { });
