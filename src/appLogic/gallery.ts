@@ -51,7 +51,9 @@ export async function sendGalleryObject(req: Request) {
 
     // console.log(galleryResponse)
 
-    photos = [];
+    // photos = [];
+
+
     // if (isNaN(Number(pageNumber)) || Number(pageNumber) > 5 || Number(pageNumber) < 1) {
     //     console.log("Wrong page number")
     //     return {
@@ -60,19 +62,31 @@ export async function sendGalleryObject(req: Request) {
     // }
     console.log("QUERY: ", req.query)
     let limit = Number(req.query.limit)
+    let pageNumber = Number(req.query.page)
     let dir = path.join(__dirname, '../../static/photos')
     console.log("Dir: " + dir)
-    let files = await readdir(dir)
-    let limitCounter = 0;
-    files.forEach((file: any) => {
-        if (limitCounter < limit) {
+    // let files = await readdir(dir)
 
-            photos.push(file)
-            limitCounter++;
-        } else {
-            return
-        }
-    });
+
+    // console.log(files)
+    // let limitCounter = 0;
+    // files.forEach((file: any) => {
+    //     if (limitCounter < limit) {
+
+    //         photos.push(file)
+    //         limitCounter++;
+    //     } else {
+    //         return
+    //     }
+    // });
+
+
+    let photos = await getPhotosArray(dir, pageNumber, limit)
+    // for(let i = ((pageNumber - 1) * limit); i < limit; i++){
+    //     console.log('Photo: ')
+    //     console.log(i, " : ", files[i])
+    //     photos.push(files[i])
+    // }
 
     console.log("Photos: " + photos)
     let total = await getPagesNumber(req)
@@ -107,4 +121,15 @@ async function getPagesNumber(req: Request){
 async function getTotal( req: Request){
     let total = await getPagesNumber(req)
     return total
+}
+
+async function getPhotosArray(dir: any, pageNumber: number, limit: number){
+    let files = await readdir(dir)
+    let photos = []
+    for(let i = ((pageNumber - 1) * limit); i < limit; i++){
+        console.log('Photo: ')
+        console.log(i, " : ", files[i])
+        photos.push(files[i])
+    }
+    return photos
 }

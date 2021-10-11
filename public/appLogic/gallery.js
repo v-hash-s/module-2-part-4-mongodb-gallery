@@ -54,7 +54,7 @@ var photos = [];
 // export async function sendGalleryObject(pageNumber: any): Promise<GalleryResponse | ErrorMessage>{
 function sendGalleryObject(req) {
     return __awaiter(this, void 0, void 0, function () {
-        var limit, dir, files, limitCounter, total, galleryResponse;
+        var limit, pageNumber, dir, photos, total, galleryResponse;
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -79,7 +79,7 @@ function sendGalleryObject(req) {
                     //     total: 5
                     // }
                     // console.log(galleryResponse)
-                    photos = [];
+                    // photos = [];
                     // if (isNaN(Number(pageNumber)) || Number(pageNumber) > 5 || Number(pageNumber) < 1) {
                     //     console.log("Wrong page number")
                     //     return {
@@ -88,21 +88,23 @@ function sendGalleryObject(req) {
                     // }
                     console.log("QUERY: ", req.query);
                     limit = Number(req.query.limit);
+                    pageNumber = Number(req.query.page);
                     dir = path.join(__dirname, '../../static/photos');
                     console.log("Dir: " + dir);
-                    return [4 /*yield*/, readdir(dir)];
+                    return [4 /*yield*/, getPhotosArray(dir, pageNumber, limit)
+                        // for(let i = ((pageNumber - 1) * limit); i < limit; i++){
+                        //     console.log('Photo: ')
+                        //     console.log(i, " : ", files[i])
+                        //     photos.push(files[i])
+                        // }
+                    ];
                 case 1:
-                    files = _b.sent();
-                    limitCounter = 0;
-                    files.forEach(function (file) {
-                        if (limitCounter < limit) {
-                            photos.push(file);
-                            limitCounter++;
-                        }
-                        else {
-                            return;
-                        }
-                    });
+                    photos = _b.sent();
+                    // for(let i = ((pageNumber - 1) * limit); i < limit; i++){
+                    //     console.log('Photo: ')
+                    //     console.log(i, " : ", files[i])
+                    //     photos.push(files[i])
+                    // }
                     console.log("Photos: " + photos);
                     return [4 /*yield*/, getPagesNumber(req)];
                 case 2:
@@ -163,6 +165,25 @@ function getTotal(req) {
                 case 1:
                     total = _a.sent();
                     return [2 /*return*/, total];
+            }
+        });
+    });
+}
+function getPhotosArray(dir, pageNumber, limit) {
+    return __awaiter(this, void 0, void 0, function () {
+        var files, photos, i;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, readdir(dir)];
+                case 1:
+                    files = _a.sent();
+                    photos = [];
+                    for (i = ((pageNumber - 1) * limit); i < limit; i++) {
+                        console.log('Photo: ');
+                        console.log(i, " : ", files[i]);
+                        photos.push(files[i]);
+                    }
+                    return [2 /*return*/, photos];
             }
         });
     });
