@@ -51,13 +51,14 @@ router.options('/', function (req, res) {
 });
 router.get('/', function (req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var pageNumber, objects, ejsData;
+        var pageNumber, limit, objects, ejsData;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     pageNumber = req.query.page;
+                    limit = req.query.limit;
                     if (pageNumber == null) {
-                        res.redirect("/gallery?page=1");
+                        res.redirect("/gallery?page=1&limit=" + limit);
                     }
                     // let objects = await sendGalleryObject(pageNumber);
                     // let ejsData = {}
@@ -69,6 +70,7 @@ router.get('/', function (req, res) {
                     objects = _a.sent();
                     ejsData = {};
                     ejsData = { objects: objects };
+                    console.log("EJS: ", ejsData);
                     res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData: ejsData });
                     console.log(req.query);
                     return [2 /*return*/];

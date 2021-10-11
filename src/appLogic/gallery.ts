@@ -77,6 +77,7 @@ export async function sendGalleryObject(req: Request) {
     console.log("Photos: " + photos)
     let total = await getPagesNumber(req)
     console.log("TOTAL: ", total)
+    console.log("SIZE: ", photos.length)
     let galleryResponse = {
         objects: photos,
         total: await getTotal(req)

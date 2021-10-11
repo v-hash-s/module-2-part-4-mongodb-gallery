@@ -2,7 +2,8 @@
 //const galleryUrl: URL = new URL('api/gallery'); 
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
-
+let total = Number(document.getElementById('total').innerText);
+console.log(total)
 
 // console.log(typeof(params.limit))
 // let limit = location.search()
@@ -96,6 +97,8 @@ function updateLocation() {
 }
 btnBack.addEventListener('click', function () {
     pageNumber = previousPage(pageNumber);
+    // alert(pageNumber)
+
     localStorage.setItem('page', pageNumber);
     createGalleryPage(pageNumber);
 });
@@ -123,25 +126,24 @@ btnNext.addEventListener('click', function () {
 // }
 function nextPage(pageNumber) {
     pageNumber = `${+pageNumber + 1}`;
-    // if (+pageNumber > 5) {
-    //     pageNumber = `${+pageNumber - 5}`;
-    // }
-    // if (+pageNumber > +(params.limit)) {
-    //     pageNumber = `${+pageNumber - Number(params.limit)}`;
-    // }
+    console.log(total)
+    if (+pageNumber > total) {
+        pageNumber = `${+pageNumber - total}`;
+    }
+    
     localStorage.setItem('page', pageNumber);
     console.log(pageNumber);
     return pageNumber;
 }
 function previousPage(pageNumber) {
     pageNumber = `${+pageNumber - 1}`;
-    // if (+pageNumber < 1) {
-    //     pageNumber = `${+pageNumber + 5}`;
-    // }
-    // if (+pageNumber < 1) {
-    //     pageNumber = `${+pageNumber + Number(params.limit)}`;
-    // }
+   
+    if (+pageNumber < 1) {
+        pageNumber = `${+pageNumber + total}`;
+    }
+    
     localStorage.setItem('page', pageNumber);
     console.log(pageNumber);
     return pageNumber;
 }
+

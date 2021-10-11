@@ -108,6 +108,7 @@ function sendGalleryObject(req) {
                 case 2:
                     total = _b.sent();
                     console.log("TOTAL: ", total);
+                    console.log("SIZE: ", photos.length);
                     _a = {
                         objects: photos
                     };

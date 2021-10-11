@@ -24,8 +24,9 @@ router.options('/', (req: Request, res: Response) => {
 
 router.get('/', async function(req: Request, res: Response){
     let pageNumber = req.query.page;
+    let limit = req.query.limit
     if (pageNumber == null) {
-        res.redirect("/gallery?page=1")
+        res.redirect(`/gallery?page=1&limit=${limit}`)
     }
     // let objects = await sendGalleryObject(pageNumber);
     // let ejsData = {}
@@ -35,6 +36,7 @@ router.get('/', async function(req: Request, res: Response){
     let objects = await sendGalleryObject(req);
     let ejsData = {}
     ejsData = { objects };
+    console.log("EJS: ", ejsData)
     res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData })
     console.log(req.query)
  });
