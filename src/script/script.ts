@@ -13,7 +13,7 @@ async function getData(images: any) {
     let arr: any = []
     let asyncImages = await images
     for (let img of asyncImages) {
-
+    
         await new Promise((resolve, reject) => {
             fs.stat(path.resolve(path.join(__dirname, `../../static/photos/${img}`)), (err: any, data: any) => {
                 if (err) {
