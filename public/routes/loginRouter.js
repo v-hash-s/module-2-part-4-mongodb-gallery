@@ -62,17 +62,24 @@ router.get('/', function (req, res) {
 });
 router.post('/', function (req, res) {
     return __awaiter(this, void 0, void 0, function () {
+        var isValid;
         return __generator(this, function (_a) {
-            if ((0, login_1.isValidUser)(req)) {
-                res.cookie('token', 'token');
-                res.status(200);
-                res.send((0, login_1.sendToken)());
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, ((0, login_1.isValidUser)(req))];
+                case 1:
+                    isValid = _a.sent();
+                    console.log("IS VALID: ", isValid);
+                    if (isValid) {
+                        res.cookie('token', 'token');
+                        res.status(200);
+                        res.send((0, login_1.sendToken)());
+                    }
+                    else {
+                        res.status(401);
+                        res.send({ errorMessage: 'Invalid email or password' });
+                    }
+                    return [2 /*return*/];
             }
-            else {
-                res.status(401);
-                res.send({ errorMessage: 'Invalid email or password' });
-            }
-            return [2 /*return*/];
         });
     });
 });

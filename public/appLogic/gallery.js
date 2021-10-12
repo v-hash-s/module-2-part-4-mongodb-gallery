@@ -52,7 +52,6 @@ var folders;
     folders[folders["fifth_page"] = 5] = "fifth_page";
 })(folders = exports.folders || (exports.folders = {}));
 var photos = [];
-// export async function sendGalleryObject(pageNumber: any): Promise<GalleryResponse | ErrorMessage>{
 function sendGalleryObject(req) {
     return __awaiter(this, void 0, void 0, function () {
         var limit, pageNumber, dir, photos, total, galleryResponse;
@@ -60,52 +59,14 @@ function sendGalleryObject(req) {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    // photos = [];
-                    // if (isNaN(Number(pageNumber)) || Number(pageNumber) > 5 || Number(pageNumber) < 1) {
-                    //     console.log("Wrong page number")
-                    //     return {
-                    //         errorMessage: "Invalid page number"
-                    //     };
-                    // }
-                    // let dir = path.join(__dirname, '../../static/photos', folders[pageNumber])
-                    // console.log("Dir: " + dir)
-                    // let files = await readdir(dir)
-                    // files.forEach((file: any) => {
-                    //     photos.push(file)
-                    // });
-                    // console.log("Photos: " + photos)
-                    // let galleryResponse: GalleryResponse = {
-                    //     objects: photos,
-                    //     page: pageNumber.toString(),
-                    //     total: 5
-                    // }
-                    // console.log(galleryResponse)
-                    // photos = [];
-                    // if (isNaN(Number(pageNumber)) || Number(pageNumber) > 5 || Number(pageNumber) < 1) {
-                    //     console.log("Wrong page number")
-                    //     return {
-                    //         errorMessage: "Invalid page number"
-                    //     };
-                    // }
                     console.log("QUERY: ", req.query);
                     limit = Number(req.query.limit);
                     pageNumber = Number(req.query.page);
                     dir = path.join(__dirname, '../../static/photos');
                     console.log("Dir: " + dir);
-                    return [4 /*yield*/, getPhotosArray(dir, pageNumber, limit)
-                        // for(let i = ((pageNumber - 1) * limit); i < limit; i++){
-                        //     console.log('Photo: ')
-                        //     console.log(i, " : ", files[i])
-                        //     photos.push(files[i])
-                        // }
-                    ];
+                    return [4 /*yield*/, getPhotosArray(dir, pageNumber, limit)];
                 case 1:
                     photos = _b.sent();
-                    // for(let i = ((pageNumber - 1) * limit); i < limit; i++){
-                    //     console.log('Photo: ')
-                    //     console.log(i, " : ", files[i])
-                    //     photos.push(files[i])
-                    // }
                     console.log("Photos: " + photos);
                     return [4 /*yield*/, getPagesNumber(req)];
                 case 2:
@@ -135,12 +96,7 @@ function getPagesNumber(req) {
                     console.log(req.query);
                     limit = Number(req.query.limit);
                     console.log(limit);
-                    return [4 /*yield*/, server_1.db.collection('images')
-                        //   collection.find().toArray()
-                        //   let counts = await collection.count().then((count: any) => {
-                        //     console.log(Math.ceil(count / limit));
-                        //     })
-                    ];
+                    return [4 /*yield*/, server_1.db.collection('images')];
                 case 1:
                     collection = _a.sent();
                     return [4 /*yield*/, collection.count()];
@@ -186,11 +142,6 @@ function getPhotosArray(dir, pageNumber, limit) {
                         console.log(i, " : ", arr[i].path);
                         photos.push(arr[i].path);
                     }
-                    // for(let i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < files.length; i++){
-                    //     console.log('Photo: ')
-                    //     console.log(i, " : ", files[i])
-                    //     photos.push(files[i])
-                    // }
                     return [2 /*return*/, photos];
             }
         });
@@ -201,12 +152,9 @@ function getValue() {
         var arr;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, ImageSchema_1.default.find({}, { path: 1, _id: 0 }).exec()
-                    // console.log(arr)
-                ];
+                case 0: return [4 /*yield*/, ImageSchema_1.default.find({}, { path: 1, _id: 0 }).exec()];
                 case 1:
                     arr = _a.sent();
-                    // console.log(arr)
                     return [2 /*return*/, arr];
             }
         });

@@ -64,7 +64,6 @@ var bodyParser = require("body-parser");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
 var logger_1 = require("./logger");
-var ImageSchema_1 = require("./database/models/ImageSchema");
 // connect to db
 var dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
@@ -92,58 +91,23 @@ app.use(cookieParser());
 var loginRouter_1 = require("./routes/loginRouter");
 var galleryRouter_1 = require("./routes/galleryRouter");
 var uploadRouter_1 = require("./routes/uploadRouter");
-// const loginRouter = require('./loginRouter.js')
-// const galleryRouter = require('./galleryRouter.js')
-// const uploadRouter = require('./uploadRouter.js')
-// app.get('/images', async (req: Request, res: Response) => {
-//   let images = await getData(newArr)
-//   for (let image of images) {
-//     const img = new ImageModel({
-//       path: image.image,
-//       metadata: image.metadata
-//     })
-//     img.save()
-//       .then((result: any) => console.log(result))
-//   }
-// })
 // check if exists
-app.use('/images', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var limit, arr;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                console.log(req.query);
-                limit = Number(req.query.limit);
-                console.log(limit);
-                return [4 /*yield*/, getValue()];
-            case 1:
-                arr = _a.sent();
-                console.log(arr[0].path);
-                return [2 /*return*/];
-        }
-    });
-}); });
-// YEEEEEESSSS !!!!!
-function getValue() {
-    return __awaiter(this, void 0, void 0, function () {
-        var arr;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, ImageSchema_1.default.find({}, { path: 1, _id: 0 }).limit(5).exec()
-                    // console.log(arr)
-                ];
-                case 1:
-                    arr = _a.sent();
-                    // console.log(arr)
-                    return [2 /*return*/, arr];
-            }
-        });
-    });
-}
+// app.use('/images', async (req: Request, res: Response) => {
+//   console.log(req.query)
+//   let limit = Number(req.query.limit)
+//   console.log(limit)
+//   let arr = await getValue()
+//   console.log(arr[0].path)
+//   })
+// // YEEEEEESSSS !!!!!
+// async function getValue(){
+// let arr = await ImageModel.find({}, {path: 1, _id: 0}).limit(5).exec()
+// // console.log(arr)
+// return arr
+// }
 app.use('/', loginRouter_1.default);
 app.use('/gallery', galleryRouter_1.default);
 app.use('/upload', uploadRouter_1.default);
 app.all('*', function (req, res) {
     res.status(404).end("Page " + req.url + " not found");
 });
-// app.listen(8080, () => console.log('At 8080 port...'))

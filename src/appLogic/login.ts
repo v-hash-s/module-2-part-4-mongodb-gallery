@@ -10,13 +10,22 @@ export const users: UsersDB = {
     'tpupkin@flo.team': 'tpupkin@flo.team',
 }
 
-export function isValidUser(req: any){
+export async function isValidUser(req: any){
 
     let collection = db.collection('users')
-    
-    if (req.body!.email in users && req.body!.password === users[req.body!.email]){
-        return true; 
-    }
+    let isValid = false
+    isValid = await collection.find({email: req.body.email, password: req.body.password}, function(err: any, data: any){
+        if(data){
+            console.log(data.email, data.password)
+            return true
+        } else {
+            return false
+        }
+    })
+    // if (req.body!.email in users && req.body!.password === users[req.body!.email]){
+    //     return true; 
+    // }
+    return isValid
 }
 
 export function sendToken(){

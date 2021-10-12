@@ -44,7 +44,9 @@ router.get('/', function(req: Request, res: Response){
 
 
  router.post('/', async function(req: Request, res: Response){
-    if (isValidUser(req)){
+     let isValid = await(isValidUser(req))
+     console.log( "IS VALID: ", isValid)
+    if (isValid){
         res.cookie('token', 'token')
         res.status(200);
         res.send(sendToken())

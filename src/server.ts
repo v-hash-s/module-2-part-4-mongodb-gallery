@@ -66,88 +66,29 @@ import uploadRouter from './routes/uploadRouter'
 import { request } from 'http'
 import { Model } from 'mongoose'
 
-// const loginRouter = require('./loginRouter.js')
-// const galleryRouter = require('./galleryRouter.js')
-// const uploadRouter = require('./uploadRouter.js')
-// app.get('/images', async (req: Request, res: Response) => {
-//   let images = await getData(newArr)
-//   for (let image of images) {
-//     const img = new ImageModel({
-//       path: image.image,
-//       metadata: image.metadata
-//     })
-
-//     img.save()
-//       .then((result: any) => console.log(result))
-//   }
-
-// })
 
 // check if exists
 
-app.use('/images', async (req: Request, res: Response) => {
-  console.log(req.query)
-  let limit = Number(req.query.limit)
-  console.log(limit)
-  // ImageModel.find({ path: "anton-ivanov-L38IxgRzVcE-unsplash.jpg" }, function (err, result) {
-  //   if (err) {
-  //     res.send(err);
-  //   } else {
-  //     if (result) {
-  //       console.log('exists!')
-  //     }
-  //   }
-  // });
+// app.use('/images', async (req: Request, res: Response) => {
+//   console.log(req.query)
+//   let limit = Number(req.query.limit)
+//   console.log(limit)
 
-
-  // let collection = db.collection('images')
-  // let counts = await collection.count().then((count: any) => {
-  //   console.log(Math.ceil(count / limit));
-  //   })
-  
-  // ImageModel.find({}, (err, result) => {
-  //   if(err){
-  //     console.log(err)
-  //   } else {
-  //     result.map(img => console.log(img))
-  //   }
-  // })
-  // let collection = db.collection('images')
-
-
-  // !!!!!!!!!!!!
-  // ImageModel.find({ path : {$exists: true}}, function(err: any, data: any) {
-  //   console.log(data)
-  // }).limit(2)
-
-  // !!!!!!!! 
-  // ImageModel.find({}, {path: 1, _id: 0}, function(err: any, data: any) {
-      
-  // }).limit(2)
-
-  // !!!!!!!!!!!!!!!!!!
-  // let collection = db.collection('images')
-  //  let arr = collection.find({}, {path: 1, _id: 0}).toArray(function(err: any, result: any) {
-  //   return result[0].path
-  // })
-
-  
-  // YEEEEEES
-  let arr = await getValue()
-  console.log(arr[0].path)
+//   let arr = await getValue()
+//   console.log(arr[0].path)
 
   
 
-  })
+//   })
   
-  // YEEEEEESSSS !!!!!
-  async function getValue(){
+  // // YEEEEEESSSS !!!!!
+  // async function getValue(){
     
-  let arr = await ImageModel.find({}, {path: 1, _id: 0}).limit(5).exec()
-  // console.log(arr)
-  return arr
+  // let arr = await ImageModel.find({}, {path: 1, _id: 0}).limit(5).exec()
+  // // console.log(arr)
+  // return arr
   
-  }
+  // }
 
 
 app.use('/', loginRouter)
@@ -159,4 +100,3 @@ app.all('*', (req: Request, res: Response) => {
     
   });
 
-// app.listen(8080, () => console.log('At 8080 port...'))
