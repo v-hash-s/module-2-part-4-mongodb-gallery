@@ -135,6 +135,7 @@ function getPagesNumber(req) {
                     limit = Number(req.query.limit);
                     console.log(limit);
                     return [4 /*yield*/, server_1.db.collection('images')
+                        //   collection.find().toArray()
                         //   let counts = await collection.count().then((count: any) => {
                         //     console.log(Math.ceil(count / limit));
                         //     })
@@ -188,3 +189,9 @@ function getPhotosArray(dir, pageNumber, limit) {
         });
     });
 }
+// async function getImagesNames(){
+//     let collection = db.collection('images')
+//    let arr = collection.find({}, {path: 1, _id: 0}).toArray(function(err: any, result: any) {
+//     console.log(result[0].path)
+//   })
+// }

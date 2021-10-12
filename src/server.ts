@@ -89,20 +89,66 @@ app.use('/images', async (req: Request, res: Response) => {
   console.log(req.query)
   let limit = Number(req.query.limit)
   console.log(limit)
-  ImageModel.find({ path: "anton-ivanov-L38IxgRzVcE-unsplash.jpg" }, function (err, result) {
-    if (err) {
-      res.send(err);
-    } else {
-      if (result) {
-        console.log('exists!')
-      }
-    }
-  });
+  // ImageModel.find({ path: "anton-ivanov-L38IxgRzVcE-unsplash.jpg" }, function (err, result) {
+  //   if (err) {
+  //     res.send(err);
+  //   } else {
+  //     if (result) {
+  //       console.log('exists!')
+  //     }
+  //   }
+  // });
+
+
   // let collection = db.collection('images')
   // let counts = await collection.count().then((count: any) => {
   //   console.log(Math.ceil(count / limit));
   //   })
+  
+  // ImageModel.find({}, (err, result) => {
+  //   if(err){
+  //     console.log(err)
+  //   } else {
+  //     result.map(img => console.log(img))
+  //   }
+  // })
+  // let collection = db.collection('images')
+
+
+  // !!!!!!!!!!!!
+  // ImageModel.find({ path : {$exists: true}}, function(err: any, data: any) {
+  //   console.log(data)
+  // }).limit(2)
+
+  // !!!!!!!! 
+  // ImageModel.find({}, {path: 1, _id: 0}, function(err: any, data: any) {
+      
+  // }).limit(2)
+
+  // !!!!!!!!!!!!!!!!!!
+  // let collection = db.collection('images')
+  //  let arr = collection.find({}, {path: 1, _id: 0}).toArray(function(err: any, result: any) {
+  //   return result[0].path
+  // })
+
+  
+  // YEEEEEES
+  let arr = await getValue()
+  console.log(arr[0].path)
+
+  
+
   })
+  
+  // YEEEEEESSSS !!!!!
+  async function getValue(){
+    // let collection = await db.collection('images')
+    
+  let arr = await ImageModel.find({}, {path: 1, _id: 0}).limit(5).exec()
+  // console.log(arr)
+  return arr
+  
+  }
 
 
 app.use('/', loginRouter)

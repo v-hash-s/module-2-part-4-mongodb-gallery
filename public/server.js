@@ -108,24 +108,38 @@ var uploadRouter_1 = require("./routes/uploadRouter");
 // })
 // check if exists
 app.use('/images', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var limit;
+    var limit, arr;
     return __generator(this, function (_a) {
-        console.log(req.query);
-        limit = Number(req.query.limit);
-        console.log(limit);
-        ImageSchema_1.default.find({ path: "anton-ivanov-L38IxgRzVcE-unsplash.jpg" }, function (err, result) {
-            if (err) {
-                res.send(err);
-            }
-            else {
-                if (result) {
-                    console.log('exists!');
-                }
-            }
-        });
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0:
+                console.log(req.query);
+                limit = Number(req.query.limit);
+                console.log(limit);
+                return [4 /*yield*/, getValue()];
+            case 1:
+                arr = _a.sent();
+                console.log(arr[0].path);
+                return [2 /*return*/];
+        }
     });
 }); });
+// YEEEEEESSSS !!!!!
+function getValue() {
+    return __awaiter(this, void 0, void 0, function () {
+        var arr;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, ImageSchema_1.default.find({}, { path: 1, _id: 0 }).limit(5).exec()
+                    // console.log(arr)
+                ];
+                case 1:
+                    arr = _a.sent();
+                    // console.log(arr)
+                    return [2 /*return*/, arr];
+            }
+        });
+    });
+}
 app.use('/', loginRouter_1.default);
 app.use('/gallery', galleryRouter_1.default);
 app.use('/upload', uploadRouter_1.default);
