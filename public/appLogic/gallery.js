@@ -173,18 +173,15 @@ function getTotal(req) {
 }
 function getPhotosArray(dir, pageNumber, limit) {
     return __awaiter(this, void 0, void 0, function () {
-        var arr, files, photos, i;
+        var arr, photos, i;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, getValue()];
                 case 1:
                     arr = _a.sent();
                     console.log("MY ARR: ", arr);
-                    return [4 /*yield*/, readdir(dir)];
-                case 2:
-                    files = _a.sent();
                     photos = [];
-                    for (i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < files.length; i++) {
+                    for (i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < arr.length; i++) {
                         console.log('Photo: ');
                         console.log(i, " : ", arr[i].path);
                         photos.push(arr[i].path);
