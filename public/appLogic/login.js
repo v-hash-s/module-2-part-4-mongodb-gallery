@@ -53,26 +53,50 @@ function isValidUser(req) {
             switch (_a.label) {
                 case 0:
                     collection = server_1.db.collection('users');
-                    isValid = false;
-                    return [4 /*yield*/, collection.find({ email: req.body.email, password: req.body.password }, function (err, data) {
+                    return [4 /*yield*/, collection.findOne({ email: req.body.email }, function (err, data) {
                             if (data) {
-                                console.log(data.email, data.password);
-                                return true;
+                                console.log(data);
+                                var userEmail = data.email;
+                                var userPassword = data.password;
+                                if (userEmail === req.body.email && userPassword === req.body.password) {
+                                    console.log('here');
+                                    return true;
+                                }
+                                else
+                                    return false;
                             }
                             else {
                                 return false;
                             }
                         })
+                        // isValid = await collection.find({email: req.body.email, password: req.body.password}, function(err: any, data: any){
+                        //     if(data){
+                        //         console.log(data.email, data.password)
+                        //         return true
+                        //     } else {
+                        //         return false
+                        //     }
+                        // })
                         // if (req.body!.email in users && req.body!.password === users[req.body!.email]){
                         //     return true; 
                         // }
                     ];
                 case 1:
                     isValid = _a.sent();
+                    // isValid = await collection.find({email: req.body.email, password: req.body.password}, function(err: any, data: any){
+                    //     if(data){
+                    //         console.log(data.email, data.password)
+                    //         return true
+                    //     } else {
+                    //         return false
+                    //     }
+                    // })
                     // if (req.body!.email in users && req.body!.password === users[req.body!.email]){
                     //     return true; 
                     // }
-                    return [2 /*return*/, isValid];
+                    console.log(isValid);
+                    return [4 /*yield*/, isValid];
+                case 2: return [2 /*return*/, _a.sent()];
             }
         });
     });
