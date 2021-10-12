@@ -41,6 +41,7 @@ var util = require("util");
 var fs = require("fs");
 var path = require("path");
 var server_1 = require("../server");
+var ImageSchema_1 = require("../database/models/ImageSchema");
 var readdir = util.promisify(fs.readdir);
 var folders;
 (function (folders) {
@@ -172,26 +173,45 @@ function getTotal(req) {
 }
 function getPhotosArray(dir, pageNumber, limit) {
     return __awaiter(this, void 0, void 0, function () {
-        var files, photos, i;
+        var arr, files, photos, i;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, readdir(dir)];
+                case 0: return [4 /*yield*/, getValue()];
                 case 1:
+                    arr = _a.sent();
+                    console.log("MY ARR: ", arr);
+                    return [4 /*yield*/, readdir(dir)];
+                case 2:
                     files = _a.sent();
                     photos = [];
                     for (i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < files.length; i++) {
                         console.log('Photo: ');
-                        console.log(i, " : ", files[i]);
-                        photos.push(files[i]);
+                        console.log(i, " : ", arr[i].path);
+                        photos.push(arr[i].path);
                     }
+                    // for(let i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < files.length; i++){
+                    //     console.log('Photo: ')
+                    //     console.log(i, " : ", files[i])
+                    //     photos.push(files[i])
+                    // }
                     return [2 /*return*/, photos];
             }
         });
     });
 }
-// async function getImagesNames(){
-//     let collection = db.collection('images')
-//    let arr = collection.find({}, {path: 1, _id: 0}).toArray(function(err: any, result: any) {
-//     console.log(result[0].path)
-//   })
-// }
+function getValue() {
+    return __awaiter(this, void 0, void 0, function () {
+        var arr;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, ImageSchema_1.default.find({}, { path: 1, _id: 0 }).exec()
+                    // console.log(arr)
+                ];
+                case 1:
+                    arr = _a.sent();
+                    // console.log(arr)
+                    return [2 /*return*/, arr];
+            }
+        });
+    });
+}

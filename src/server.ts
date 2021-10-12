@@ -142,7 +142,6 @@ app.use('/images', async (req: Request, res: Response) => {
   
   // YEEEEEESSSS !!!!!
   async function getValue(){
-    // let collection = await db.collection('images')
     
   let arr = await ImageModel.find({}, {path: 1, _id: 0}).limit(5).exec()
   // console.log(arr)

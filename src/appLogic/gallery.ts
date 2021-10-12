@@ -9,6 +9,7 @@ import * as path from 'path'
 import * as querystring from 'querystring'
 
 import { db } from '../server'
+import ImageModel from '../database/models/ImageSchema'
 
 const readdir = util.promisify(fs.readdir);
 
@@ -125,20 +126,31 @@ async function getTotal( req: Request){
 }
 
 async function getPhotosArray(dir: any, pageNumber: number, limit: number){
+    let arr = await getValue()
+    console.log("MY ARR: ",arr)
     let files = await readdir(dir)
     let photos = []
+
     for(let i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < files.length; i++){
         console.log('Photo: ')
-        console.log(i, " : ", files[i])
-        photos.push(files[i])
+        console.log(i, " : ", arr[i].path)
+        photos.push(arr[i].path)
     }
+
+    // for(let i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < files.length; i++){
+    //     console.log('Photo: ')
+    //     console.log(i, " : ", files[i])
+    //     photos.push(files[i])
+    // }
     return photos
 }
 
-// async function getImagesNames(){
-//     let collection = db.collection('images')
 
-//    let arr = collection.find({}, {path: 1, _id: 0}).toArray(function(err: any, result: any) {
-//     console.log(result[0].path)
-//   })
-// }
+
+async function getValue(){
+    
+    let arr = await ImageModel.find({}, {path: 1, _id: 0}).exec()
+    // console.log(arr)
+    return arr
+    
+    }
