@@ -55,13 +55,14 @@ function uploadImg(req, res) {
                     console.log('IS REAL: ', isReal);
                     if (isReal) {
                         console.log('done');
+                        fs.unlink(req.files.photo.path, function () { });
                         return [2 /*return*/];
                     }
                     else {
                         console.log("CONTINUED");
-                        console.log(req.files.photo.path);
-                        console.log(path.join(path.resolve("../static/photos"), req.files.photo.name));
-                        fs.rename(req.files.photo.path, path.join(path.resolve("../static/photos"), req.files.photo.name), function (err) {
+                        ///console.log(req.files.photo.path)
+                        //console.log(path.join(path.resolve("../../static/photos"), req.files.photo.name))
+                        fs.rename(req.files.photo.path, path.join(__dirname, "../../static/photos/", req.files.photo.name), function (err) {
                             if (err)
                                 throw err;
                         });
@@ -91,21 +92,23 @@ function uploadImg(req, res) {
 exports.uploadImg = uploadImg;
 function isExist(imagePath) {
     return __awaiter(this, void 0, void 0, function () {
-        var collection, isReal;
+        var collection, exist;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, server_1.db.collection('users')];
+                case 0: return [4 /*yield*/, server_1.db.collection('images')];
                 case 1:
                     collection = _a.sent();
-                    return [4 /*yield*/, collection.find({ path: { $exists: imagePath } }, function (err, result) {
-                            if (result) {
+                    return [4 /*yield*/, collection.findOne({ path: imagePath }, { path: 1 }).then(function (data) {
+                            if (data) {
                                 return true;
+                            }
+                            else {
+                                return false;
                             }
                         })];
                 case 2:
-                    isReal = _a.sent();
-                    console.log("is Real func: ", isReal);
-                    return [2 /*return*/, isReal];
+                    exist = _a.sent();
+                    return [2 /*return*/, exist];
             }
         });
     });

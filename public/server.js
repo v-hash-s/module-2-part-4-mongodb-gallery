@@ -90,20 +90,6 @@ app.use(cookieParser());
 var loginRouter_1 = require("./routes/loginRouter");
 var galleryRouter_1 = require("./routes/galleryRouter");
 var uploadRouter_1 = require("./routes/uploadRouter");
-// check if exists
-// app.use('/images', async (req: Request, res: Response) => {
-//   console.log(req.query)
-//   let limit = Number(req.query.limit)
-//   console.log(limit)
-//   let arr = await getValue()
-//   console.log(arr[0].path)
-//   })
-// // YEEEEEESSSS !!!!!
-// async function getValue(){
-// let arr = await ImageModel.find({}, {path: 1, _id: 0}).limit(5).exec()
-// // console.log(arr)
-// return arr
-// }
 app.use('/', loginRouter_1.default);
 app.use('/gallery', galleryRouter_1.default);
 app.use('/upload', uploadRouter_1.default);
