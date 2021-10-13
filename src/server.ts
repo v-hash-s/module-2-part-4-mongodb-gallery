@@ -37,7 +37,7 @@ app.use(cors({
   origin: '*'
 }))
 
-app.use(express.json(), logger);
+// app.use(express.json(), logger);
 
 app.set("view engine", "ejs");
 app.use(bodyParser.json())

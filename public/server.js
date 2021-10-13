@@ -63,7 +63,6 @@ var formidableMiddleware = require("express-formidable");
 var bodyParser = require("body-parser");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
-var logger_1 = require("./logger");
 // connect to db
 var dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
@@ -73,7 +72,7 @@ exports.db = mongoose.connection;
 app.use(cors({
     origin: '*'
 }));
-app.use(express.json(), logger_1.default);
+// app.use(express.json(), logger);
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

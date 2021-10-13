@@ -4,6 +4,8 @@ export const token: Token = {
     'token': 'token',
 }
 
+import ImageModel  from '../database/models/ImageSchema'
+
 export const users: UsersDB = {
     'asergeev@flo.team': 'jgF5tn4F',
     'vkotikov@flo.team': 'po3FGas8',
@@ -11,41 +13,27 @@ export const users: UsersDB = {
 }
 
 export async function isValidUser(req: any){
-
     let collection = db.collection('users')
-    let isValid = await collection.findOne({email: req.body.email}, function(err: any, data: any){
-        
+    let data = await collection.findOne({email: req.body.email}, {email: 1, password : 1}).then(function(data: any){
         if(data){
-            console.log(data)
-            let userEmail =  data.email
-            let userPassword = data.password
-            if(userEmail === req.body.email && userPassword === req.body.password) {
-                console.log('here')
+            if(data.email === req.body.email && data.password === req.body.password){
                 return true
-            } else return false
-            
-        } else {
-            return false
+            } else {
+                return false
+            }
         }
+        
     })
-    
-    // isValid = await collection.find({email: req.body.email, password: req.body.password}, function(err: any, data: any){
-    //     if(data){
-    //         console.log(data.email, data.password)
-    //         return true
-    //     } else {
-    //         return false
-    //     }
-    // })
-    // if (req.body!.email in users && req.body!.password === users[req.body!.email]){
-    //     return true; 
-    // }
-    console.log(isValid)
-    return await isValid
+    console.log(data);
+
+   return data
 }
+
+
 
 export function sendToken(){
 
         return JSON.stringify(token)
     
 }
+
