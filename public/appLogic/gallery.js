@@ -51,7 +51,6 @@ var folders;
     folders[folders["fourth_page"] = 4] = "fourth_page";
     folders[folders["fifth_page"] = 5] = "fifth_page";
 })(folders = exports.folders || (exports.folders = {}));
-var photos = [];
 function sendGalleryObject(req) {
     return __awaiter(this, void 0, void 0, function () {
         var limit, pageNumber, dir, photos, total, galleryResponse;
@@ -63,16 +62,12 @@ function sendGalleryObject(req) {
                     limit = Number(req.query.limit);
                     pageNumber = Number(req.query.page);
                     dir = path.join(__dirname, '../../static/photos');
-                    console.log("Dir: " + dir);
                     return [4 /*yield*/, getPhotosArray(dir, pageNumber, limit)];
                 case 1:
                     photos = _b.sent();
-                    console.log("Photos: " + photos);
                     return [4 /*yield*/, getPagesNumber(req)];
                 case 2:
                     total = _b.sent();
-                    console.log("TOTAL: ", total);
-                    console.log("SIZE: ", photos.length);
                     _a = {
                         objects: photos
                     };
@@ -93,9 +88,7 @@ function getPagesNumber(req) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log(req.query);
                     limit = Number(req.query.limit);
-                    console.log(limit);
                     return [4 /*yield*/, server_1.db.collection('images')];
                 case 1:
                     collection = _a.sent();
@@ -108,7 +101,6 @@ function getPagesNumber(req) {
                     return [4 /*yield*/, (Math.ceil(result / limit))];
                 case 4:
                     finalResult = _a.sent();
-                    console.log("COUNTS: ", finalResult);
                     return [2 /*return*/, finalResult];
             }
         });
@@ -135,11 +127,8 @@ function getPhotosArray(dir, pageNumber, limit) {
                 case 0: return [4 /*yield*/, getValue()];
                 case 1:
                     arr = _a.sent();
-                    console.log("MY ARR: ", arr);
                     photos = [];
                     for (i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < arr.length; i++) {
-                        console.log('Photo: ');
-                        console.log(i, " : ", arr[i].path);
                         photos.push(arr[i].path);
                     }
                     return [2 /*return*/, photos];

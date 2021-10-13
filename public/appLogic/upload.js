@@ -43,7 +43,7 @@ var server_1 = require("../server");
 var ImageSchema_1 = require("../database/models/ImageSchema");
 function uploadImg(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var isReal, img_1;
+        var isPresent, img_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -51,17 +51,13 @@ function uploadImg(req, res) {
                     console.log(req.files.photo.name);
                     return [4 /*yield*/, isExist(req.files.photo.name)];
                 case 1:
-                    isReal = _a.sent();
-                    console.log('IS REAL: ', isReal);
-                    if (isReal) {
-                        console.log('done');
-                        fs.unlink(req.files.photo.path, function () { });
+                    isPresent = _a.sent();
+                    console.log('IS REAL: ', isPresent);
+                    if (isPresent) {
                         return [2 /*return*/];
                     }
                     else {
                         console.log("CONTINUED");
-                        ///console.log(req.files.photo.path)
-                        //console.log(path.join(path.resolve("../../static/photos"), req.files.photo.name))
                         fs.rename(req.files.photo.path, path.join(__dirname, "../../static/photos/", req.files.photo.name), function (err) {
                             if (err)
                                 throw err;
