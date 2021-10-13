@@ -2,8 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const util = require('util');
 const readdir = util.promisify(fs.readdir);
-// const images = fs.readdirSync('./photos')
-
 
 
 const images = readdir(path.join(__dirname, '../../static/photos'))
@@ -24,13 +22,10 @@ async function getData(images: any) {
             })
         })
     }
-    // console.log(arr)
     return arr
 }
 
 const newArr = getData(images)
-
-
 
 export default newArr
 

@@ -52,7 +52,7 @@ router.post('/', function (req, res) {
                 case 1:
                     _a.sent();
                     res.status(302);
-                    res.redirect('/gallery' + '?page=' + req.fields.pageNumInForm);
+                    res.redirect('/gallery' + '?page=' + req.fields.pageNumInForm + "&limit=" + req.fields.limitNumInForm);
                     return [2 /*return*/];
             }
         });

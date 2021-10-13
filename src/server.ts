@@ -67,29 +67,6 @@ import { request } from 'http'
 import { Model } from 'mongoose'
 
 
-// check if exists
-
-// app.use('/images', async (req: Request, res: Response) => {
-//   console.log(req.query)
-//   let limit = Number(req.query.limit)
-//   console.log(limit)
-
-//   let arr = await getValue()
-//   console.log(arr[0].path)
-
-  
-
-//   })
-  
-  // // YEEEEEESSSS !!!!!
-  // async function getValue(){
-    
-  // let arr = await ImageModel.find({}, {path: 1, _id: 0}).limit(5).exec()
-  // // console.log(arr)
-  // return arr
-  
-  // }
-
 
 app.use('/', loginRouter)
 app.use('/gallery', galleryRouter)

@@ -8,20 +8,19 @@ console.log(total)
 // console.log(typeof(params.limit))
 // let limit = location.search()
 // console.log(limit)
-const pageSearch = /\?page=[\d+]&limit=[\d+]/g;
+const pageSearch = /\?page=\d+&limit=\d+/g;
 let limit;
 let pageNumber;
 
 if(params.limit !== undefined){
     limit = params.limit
 } else {
-    params.limit = 1
-    limit = 1
+    params.limit = 10
 }
 
 if (location.search.match(pageSearch)) {
-    localStorage.setItem('page', params.page);
-    pageNumber = localStorage.getItem('page');
+    pageNumber = params.page
+    localStorage.setItem('page', pageNumber);
     document.getElementById("pageNumInForm").value = pageNumber;
     document.getElementById("limitNumInForm").value = params.limit
 }
@@ -30,8 +29,8 @@ else if (localStorage.getItem('page')) {
     updateLocation();
 }
 else {
-    localStorage.setItem('page', "1");
-    pageNumber = localStorage.getItem('page');
+    pageNumber = 1;
+    localStorage.setItem('page', pageNumber);
     updateLocation();
 }
 

@@ -1,16 +1,10 @@
 import { Token, UsersDB } from '../interfaces'
 import { db } from '../server'
+
 export const token: Token = {
     'token': 'token',
 }
 
-import ImageModel  from '../database/models/ImageSchema'
-
-export const users: UsersDB = {
-    'asergeev@flo.team': 'jgF5tn4F',
-    'vkotikov@flo.team': 'po3FGas8',
-    'tpupkin@flo.team': 'tpupkin@flo.team',
-}
 
 export async function isValidUser(req: any){
     let collection = db.collection('users')

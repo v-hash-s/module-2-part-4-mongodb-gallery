@@ -36,15 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendToken = exports.isValidUser = exports.users = exports.token = void 0;
+exports.sendToken = exports.isValidUser = exports.token = void 0;
 var server_1 = require("../server");
 exports.token = {
     'token': 'token',
-};
-exports.users = {
-    'asergeev@flo.team': 'jgF5tn4F',
-    'vkotikov@flo.team': 'po3FGas8',
-    'tpupkin@flo.team': 'tpupkin@flo.team',
 };
 function isValidUser(req) {
     return __awaiter(this, void 0, void 0, function () {

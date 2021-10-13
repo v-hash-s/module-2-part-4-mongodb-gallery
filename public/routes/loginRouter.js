@@ -68,10 +68,9 @@ router.post('/', function (req, res) {
                 case 0: return [4 /*yield*/, ((0, login_1.isValidUser)(req))];
                 case 1:
                     isValid = _a.sent();
-                    console.log("IS VALID: ", isValid);
                     if (isValid) {
-                        res.cookie('token', 'token');
                         res.status(200);
+                        res.cookie('token', 'token');
                         res.send((0, login_1.sendToken)());
                     }
                     else {

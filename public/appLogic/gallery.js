@@ -36,21 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendGalleryObject = exports.folders = void 0;
+exports.sendGalleryObject = void 0;
 var util = require("util");
 var fs = require("fs");
 var path = require("path");
 var server_1 = require("../server");
 var ImageSchema_1 = require("../database/models/ImageSchema");
 var readdir = util.promisify(fs.readdir);
-var folders;
-(function (folders) {
-    folders[folders["first_page"] = 1] = "first_page";
-    folders[folders["second_page"] = 2] = "second_page";
-    folders[folders["third_page"] = 3] = "third_page";
-    folders[folders["fourth_page"] = 4] = "fourth_page";
-    folders[folders["fifth_page"] = 5] = "fifth_page";
-})(folders = exports.folders || (exports.folders = {}));
 function sendGalleryObject(req) {
     return __awaiter(this, void 0, void 0, function () {
         var limit, pageNumber, dir, photos, total, galleryResponse;

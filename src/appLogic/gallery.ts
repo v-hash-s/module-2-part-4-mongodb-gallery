@@ -13,16 +13,6 @@ import ImageModel from '../database/models/ImageSchema'
 
 const readdir = util.promisify(fs.readdir);
 
-export enum folders {
-    first_page = 1,
-    second_page,
-    third_page,
-    fourth_page,
-    fifth_page,
-}
-
-
-let photos: Array<string> = [];
 
 export async function sendGalleryObject(req: Request) {
 
@@ -31,16 +21,10 @@ export async function sendGalleryObject(req: Request) {
     let limit = Number(req.query.limit)
     let pageNumber = Number(req.query.page)
     let dir = path.join(__dirname, '../../static/photos')
-    console.log("Dir: " + dir)
     
-
     let photos = await getPhotosArray(dir, pageNumber, limit)
     
-
-    console.log("Photos: " + photos)
     let total = await getPagesNumber(req)
-    console.log("TOTAL: ", total)
-    console.log("SIZE: ", photos.length)
     let galleryResponse = {
         objects: photos,
         total: await getTotal(req)
@@ -52,15 +36,12 @@ export async function sendGalleryObject(req: Request) {
 }    
 
 async function getPagesNumber(req: Request){
-  console.log(req.query)
   let limit = Number(req.query.limit)
-  console.log(limit)
   let collection = await db.collection('images')
 
     let counts = await collection.count()
     let result = await counts
     let finalResult = await(Math.ceil(result / limit))
-    console.log("COUNTS: ",finalResult)
     return finalResult
 
 }
@@ -72,20 +53,15 @@ async function getTotal( req: Request){
 
 async function getPhotosArray(dir: any, pageNumber: number, limit: number){
     let arr = await getValue()
-    console.log("MY ARR: ",arr)
     let photos = []
 
     for(let i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < arr.length; i++){
-        console.log('Photo: ')
-        console.log(i, " : ", arr[i].path)
         photos.push(arr[i].path)
     }
 
     
     return photos
 }
-
-
 
 async function getValue(){
     

@@ -1,59 +1,44 @@
 import * as fs from 'fs'
-import { folders } from '../appLogic/gallery.js'
 import * as express from 'express'
 import * as path from 'path'
 import { db } from '../server'
 import ImageModel from '../database/models/ImageSchema'
 
 
-export async function uploadImg(req: any, res: any){
+export async function uploadImg(req: any, res: any) {
     if (req.files.photo.size != '0') {
         console.log(req.files.photo.name)
-        // isExist(req.files.photo.name)
-        let isReal: any = await isExist(req.files.photo.name)
-        console.log('IS REAL: ', isReal)
-        if(isReal){
-            console.log('done')
+        let isPresent: any = await isExist(req.files.photo.name)
+        console.log('IS REAL: ', isPresent)
+        if (isPresent) {
             return
         } else {
 
             console.log("CONTINUED")
-    
-            console.log(req.files.photo.path)
-            console.log(path.join(path.resolve("../static/photos"), req.files.photo.name))
-            fs.rename(req.files.photo.path, path.join(path.resolve("../static/photos"), req.files.photo.name), (err) => {
-                if (err) throw err
-             });
+
+            fs.renameSync(req.files.photo.path, path.join(__dirname, "../../static/photos/", req.files.photo.name))
             let img = req.files.photo.name
-            fs.stat(path.join(__dirname, `../../static/photos/${img}`), (err: any, data: any) => {
-                    if(err){
-                        console.log(err)
-                    } else {
-                        const image = new ImageModel({
-                            path: img,
-                            metadata: data
-                        })
-    
-                        image.save().then((result: any) => console.log(result))
-                    }
-                })
+            let stats = fs.statSync(path.join(__dirname, `../../static/photos/${img}`))
+            const image = new ImageModel({
+                path: img,
+                metadata: stats
+            })
+            await image.save().then((result: any) => console.log(result))
         }
     } else {
-        fs.unlink(req.files.photo.path, () => { });
+        fs.unlinkSync(req.files.photo.path);
     }
 }
 
-async function isExist(imagePath: string){
-    let collection = await db.collection('users')
-
-    let isReal = await collection.find({path : { $exists: imagePath}}, function(err: any, result: any){
-        if(result){
-
+async function isExist(imagePath: string) {
+    let collection = await db.collection('images')
+    let exist = await collection.findOne({ path: imagePath }, { path: 1 }).then(function (data: any) {
+        if (data) {
             return true
+        } else {
+            return false
         }
     })
-    console.log("is Real func: ",isReal)
-
-    return isReal
+    return exist
 }
 

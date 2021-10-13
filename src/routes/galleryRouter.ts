@@ -9,7 +9,7 @@ import * as cookieParser from 'cookie-parser'
 
 const router = express.Router();
 const app = express()
-import { sendGalleryObject, folders } from "../appLogic/gallery";
+import { sendGalleryObject } from "../appLogic/gallery";
 app.set("view engine", "ejs");
 app.use(cookieParser())
 router.use(require('../middlewares/auth'));
@@ -27,18 +27,12 @@ router.get('/', async function(req: Request, res: Response){
     let limit = req.query.limit
     if (pageNumber == null || limit == null) {
         res.redirect(`/gallery?page=1&limit=10`)
+        return
     } 
-    // let objects = await sendGalleryObject(pageNumber);
-    // let ejsData = {}
-    // ejsData = { objects };
-    // res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData })
-    console.log(req.query.limit)
     let objects = await sendGalleryObject(req);
     let ejsData = {}
     ejsData = { objects };
-    console.log("EJS: ", ejsData)
     res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData })
-    console.log(req.query)
  });
 
 

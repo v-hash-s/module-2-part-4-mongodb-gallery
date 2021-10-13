@@ -43,44 +43,36 @@ var server_1 = require("../server");
 var ImageSchema_1 = require("../database/models/ImageSchema");
 function uploadImg(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var isPresent, img_1;
+        var isPresent, img, stats, image;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!(req.files.photo.size != '0')) return [3 /*break*/, 2];
+                    if (!(req.files.photo.size != '0')) return [3 /*break*/, 5];
                     console.log(req.files.photo.name);
                     return [4 /*yield*/, isExist(req.files.photo.name)];
                 case 1:
                     isPresent = _a.sent();
                     console.log('IS REAL: ', isPresent);
-                    if (isPresent) {
-                        return [2 /*return*/];
-                    }
-                    else {
-                        console.log("CONTINUED");
-                        fs.rename(req.files.photo.path, path.join(__dirname, "../../static/photos/", req.files.photo.name), function (err) {
-                            if (err)
-                                throw err;
-                        });
-                        img_1 = req.files.photo.name;
-                        fs.stat(path.join(__dirname, "../../static/photos/" + img_1), function (err, data) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            else {
-                                var image = new ImageSchema_1.default({
-                                    path: img_1,
-                                    metadata: data
-                                });
-                                image.save().then(function (result) { return console.log(result); });
-                            }
-                        });
-                    }
-                    return [3 /*break*/, 3];
+                    if (!isPresent) return [3 /*break*/, 2];
+                    return [2 /*return*/];
                 case 2:
-                    fs.unlink(req.files.photo.path, function () { });
-                    _a.label = 3;
-                case 3: return [2 /*return*/];
+                    console.log("CONTINUED");
+                    fs.renameSync(req.files.photo.path, path.join(__dirname, "../../static/photos/", req.files.photo.name));
+                    img = req.files.photo.name;
+                    stats = fs.statSync(path.join(__dirname, "../../static/photos/" + img));
+                    image = new ImageSchema_1.default({
+                        path: img,
+                        metadata: stats
+                    });
+                    return [4 /*yield*/, image.save().then(function (result) { return console.log(result); })];
+                case 3:
+                    _a.sent();
+                    _a.label = 4;
+                case 4: return [3 /*break*/, 6];
+                case 5:
+                    fs.unlinkSync(req.files.photo.path);
+                    _a.label = 6;
+                case 6: return [2 /*return*/];
             }
         });
     });

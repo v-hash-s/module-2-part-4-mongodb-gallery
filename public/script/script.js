@@ -40,7 +40,6 @@ var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var readdir = util.promisify(fs.readdir);
-// const images = fs.readdirSync('./photos')
 var images = readdir(path.join(__dirname, '../../static/photos'));
 console.log(path.join(__dirname, '../../static/photos'));
 function getData(images) {
@@ -84,9 +83,7 @@ function getData(images) {
                 case 4:
                     _i++;
                     return [3 /*break*/, 2];
-                case 5: 
-                // console.log(arr)
-                return [2 /*return*/, arr];
+                case 5: return [2 /*return*/, arr];
             }
         });
     });

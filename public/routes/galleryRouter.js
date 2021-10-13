@@ -59,20 +59,14 @@ router.get('/', function (req, res) {
                     limit = req.query.limit;
                     if (pageNumber == null || limit == null) {
                         res.redirect("/gallery?page=1&limit=10");
+                        return [2 /*return*/];
                     }
-                    // let objects = await sendGalleryObject(pageNumber);
-                    // let ejsData = {}
-                    // ejsData = { objects };
-                    // res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData })
-                    console.log(req.query.limit);
                     return [4 /*yield*/, (0, gallery_1.sendGalleryObject)(req)];
                 case 1:
                     objects = _a.sent();
                     ejsData = {};
                     ejsData = { objects: objects };
-                    console.log("EJS: ", ejsData);
                     res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData: ejsData });
-                    console.log(req.query);
                     return [2 /*return*/];
             }
         });
