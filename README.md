@@ -12,7 +12,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 * current page number
 * array with photos links
 
-Also user can upload images to any page he wants. Photos are placed to pages accordingly. 
+--
 
 ### Tools used for the project
 
@@ -23,6 +23,9 @@ Also user can upload images to any page he wants. Photos are placed to pages acc
 * Cookie parser
 * Express-formidable
 * Simple-node-logger
+* Mongoose
+
+--
 
 ### Project structure:
 
@@ -30,14 +33,25 @@ Also user can upload images to any page he wants. Photos are placed to pages acc
   * logger.log
 * /public
 * /src
-  * auth.ts
-  * gallery.ts
-  * galleryRouter.ts
+  * /appLogic
+    * gallery.ts
+    * upload.ts
+    * login.ts
+  * /middlewares
+    * auth.ts
+  * /routes
+    * galleryRouter.ts
+    * loginRouter.ts
+    * uploadRouter.ts
+  * /script
+    * script.ts
+  * /database
+    * models
+      * ImageSchema.ts
   * interfaces.ts
   * logger.ts
-  * loginRouter.ts
   * server.ts
-  * uploadRouter.ts
+  
 * /static
   * /pages
     * gallery.ejs
@@ -46,15 +60,25 @@ Also user can upload images to any page he wants. Photos are placed to pages acc
     * login.js
     * not_found.html
   * /photos
-    * /first_page
-    * /second_page
-    * /third_page
-    * /fourth_page
-    * /fifth_page
+  * /uploads
 * express_gallery.postman_collection.json
 * gallery_express-1.0.0-swagger.yaml
 
+--
+
 ### Project structure description:
+
+#### interfaces.ts
+
+> Interfaces for other files
+
+#### logger.ts
+
+> Function to create logs to /logs/logger.log
+
+#### server.ts
+
+> Main router to direct user to specific pages according to his requests
 
 #### express_gallery.postman_collection.json
 
@@ -63,6 +87,12 @@ Also user can upload images to any page he wants. Photos are placed to pages acc
 #### gallery_express-1.0.0-swagger.yaml
 
 > description of requests with swagger
+
+#### **/script**
+
+#### **/script/script.ts**
+
+> Simple function to upload many photos to mongodb (was used for starting the project and not supposed to be used anymore, unless you delete all photos from db and want to upload them back)
 
 #### **/logs**
 
@@ -80,47 +110,55 @@ Also user can upload images to any page he wants. Photos are placed to pages acc
 
 > Typescript files
 
+#### **/src/middlewares**
+
 #### auth.ts
 
 > Function that checks cookies if user has the token to use gallery
+
+#### **/src/appLogic**
 
 #### gallery.ts
 
 > Function that returns object with page total number, current page and array of photos
 
+#### login.ts
+
+> Function that checks mognodb if the user has entered correct data
+
+#### upload.ts
+
+> Function that uploads image to static/photos and mongodb collection 'images'
+
+#### **/src/routes**
+
 #### galleryRouter.ts
 
 > Router for **get** requests to */gallery* to get images
-
-#### interfaces.ts
-
-> Interfaces for other files
-
-#### logger.ts
-
-> Function to create logs to /logs/logger.log
 
 #### loginRouter.ts
 
 > Router for **get** and **post** requests to */* to authorize
 
-#### server.ts
+#### **/src/database/models**
 
-> Main router to direct user to specific pages according to his requests
-
-#### uploadRouter.ts
-
-> Router for **post** requests to */upload* to upload photo to server
+> Image schema to upload image to mongodb collection
 
 #### **/static**
 
-#### **/pages**
+#### **/static/pages**
 
 > Client side with .js scripts, html for login page and ejs for gallery page
 
-#### **/photos**
+#### **/static/photos**
 
 > photos for each gallery page and upload folder to temporarily save uploaded by user photos
+
+#### **/static/uploads**
+
+> temporary placeholder for uploaded images
+
+--
 
 ### How to start the project: 
 
