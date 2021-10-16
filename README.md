@@ -1,5 +1,4 @@
-# 
-module-2-part-4-mongodb-gallery
+# module-2-part-4-mongodb-gallery
 
 ## Vlasta Stelmakh
 
