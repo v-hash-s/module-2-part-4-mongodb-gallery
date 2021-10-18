@@ -1,5 +1,5 @@
 import { Token, UsersDB } from '../interfaces'
-import { db } from '../server'
+import UserModel from '../database/models/UserSchema'
 
 export const token: Token = {
     'token': 'token',
@@ -7,8 +7,7 @@ export const token: Token = {
 
 
 export async function isValidUser(req: any){
-    let collection = db.collection('users')
-    let data = await collection.findOne({email: req.body.email}, {email: 1, password : 1}).then(function(data: any){
+    let data = await UserModel.findOne({ email: req.body.email }, { email: 1, password: 1 }).then(function (data: any) {
         if(data){
             if(data.email === req.body.email && data.password === req.body.password){
                 return true

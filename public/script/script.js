@@ -36,9 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require('fs');
-var path = require('path');
-var util = require('util');
+var fs = require("fs");
+var util = require("util");
+var path = require("path");
 var readdir = util.promisify(fs.readdir);
 var images = readdir(path.join(__dirname, '../../static/photos'));
 console.log(path.join(__dirname, '../../static/photos'));

@@ -37,7 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
-require('dotenv').config({ path: '../../.env' });
+var dotenv = require("dotenv");
+dotenv.config({ path: '../../.env' });
 function db() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
