@@ -4,6 +4,7 @@ import * as path from 'path'
 import * as express from 'express'
 const app = express()
 
+import db from './database/connectToMongoDB'
 
 // async function getData(array: any) {
 //   let arr = await newArr
@@ -25,13 +26,18 @@ import * as cookieParser from 'cookie-parser'
 
 // connect to db
 // const dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority'
-const dbURI = process.env.DB_STRING
-console.log(dbURI)
-mongoose.connect(dbURI)
-  .then((result: any) => app.listen(8080, () => console.log('At 8080 port...')))
-  .catch((err: any) => console.log(err))
+// const dbURI = process.env.DB_STRING
+// console.log(dbURI)
+// mongoose.connect(dbURI)
+//   .then((result: any) => app.listen(8080, () => console.log('At 8080 port...')))
+//   .catch((err: any) => console.log(err))
 
-export const db = mongoose.connection;
+// export const db = mongoose.connection;
+
+db()
+  .then(() => console.log('Database connection established'))
+  .then(() => app.listen(process.env.PORT, () => console.log(`At port ${process.env.PORT}`)))
+  .catch((err: any) => console.log(err.message))
 
 app.use(cors({
   origin: '*'
