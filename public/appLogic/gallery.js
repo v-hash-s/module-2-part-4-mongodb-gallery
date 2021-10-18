@@ -69,20 +69,17 @@ function sendGalleryObject(req) {
 exports.sendGalleryObject = sendGalleryObject;
 function getPagesNumber(req) {
     return __awaiter(this, void 0, void 0, function () {
-        var limit, counts, result, finalResult;
+        var limit, counts, finalResult;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     limit = Number(req.query.limit);
-                    return [4 /*yield*/, ImageSchema_1.default.count()];
+                    return [4 /*yield*/, ImageSchema_1.default.count()
+                        // const finalResult = await (Math.ceil(counts / limit))
+                    ];
                 case 1:
                     counts = _a.sent();
-                    return [4 /*yield*/, counts];
-                case 2:
-                    result = _a.sent();
-                    return [4 /*yield*/, (Math.ceil(result / limit))];
-                case 3:
-                    finalResult = _a.sent();
+                    finalResult = Math.ceil(counts / limit);
                     return [2 /*return*/, finalResult];
             }
         });

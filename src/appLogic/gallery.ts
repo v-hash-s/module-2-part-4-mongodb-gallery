@@ -26,8 +26,8 @@ async function getPagesNumber(req: Request){
     const limit = Number(req.query.limit)
 
     const counts = await ImageModel.count()
-    const result = await counts
-    const finalResult = await (Math.ceil(result / limit))
+    const finalResult = Math.ceil(counts / limit)
+
     return finalResult
 
 }
