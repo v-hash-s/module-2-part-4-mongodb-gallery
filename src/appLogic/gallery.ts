@@ -17,14 +17,14 @@ export async function sendGalleryObject(req: Request) {
 
     
     console.log("QUERY: ", req.query)
-    let limit = Number(req.query.limit)
-    let pageNumber = Number(req.query.page)
-    let dir = path.join(__dirname, '../../static/photos')
+    const limit = Number(req.query.limit)
+    const pageNumber = Number(req.query.page)
+    const dir = path.join(__dirname, '../../static/photos')
     
-    let photos = await getPhotosArray(dir, pageNumber, limit)
+    const photos = await getPhotosArray(dir, pageNumber, limit)
     
-    let total = await getPagesNumber(req)
-    let galleryResponse = {
+    const total = await getPagesNumber(req)
+    const galleryResponse = {
         objects: photos,
         total: await getTotal(req)
     }
@@ -35,23 +35,23 @@ export async function sendGalleryObject(req: Request) {
 }    
 
 async function getPagesNumber(req: Request){
-    let limit = Number(req.query.limit)
+    const limit = Number(req.query.limit)
 
-    let counts = await ImageModel.count()
-    let result = await counts
-    let finalResult = await(Math.ceil(result / limit))
+    const counts = await ImageModel.count()
+    const result = await counts
+    const finalResult = await (Math.ceil(result / limit))
     return finalResult
 
 }
 
 async function getTotal( req: Request){
-    let total = await getPagesNumber(req)
+    const total = await getPagesNumber(req)
     return total
 }
 
 async function getPhotosArray(dir: any, pageNumber: number, limit: number){
-    let arr = await getValue()
-    let photos = []
+    const arr = await getValue()
+    const photos = []
 
     for(let i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < arr.length; i++){
         photos.push(arr[i].path)
@@ -63,7 +63,7 @@ async function getPhotosArray(dir: any, pageNumber: number, limit: number){
 
 async function getValue(){
     
-    let arr = await ImageModel.find({}, {path: 1, _id: 0}).exec()
+    const arr = await ImageModel.find({}, { path: 1, _id: 0 }).exec()
     return arr
     
     }

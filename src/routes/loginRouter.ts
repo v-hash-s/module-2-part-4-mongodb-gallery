@@ -15,8 +15,7 @@ import * as cookieParser from 'cookie-parser'
 import { UsersDB, Token, ErrorMessage } from "../interfaces"
 const router = express.Router();
 import { isValidUser, sendToken } from '../appLogic/login'
-// let cookieParser = require('cookie-parser')
-// app.use(cookieParser())
+
 
 export const token: Token = {
     'token': 'token',
@@ -27,8 +26,6 @@ export const users: UsersDB = {
     'vkotikov@flo.team': 'po3FGas8',
     'tpupkin@flo.team': 'tpupkin@flo.team',
 }
-
-// app.use(express.static(path.join(__dirname, '../static/pages')))
 
 router.options('/', (req: Request, res: Response) => {
 
@@ -44,7 +41,7 @@ router.get('/', function(req: Request, res: Response){
 
 
  router.post('/', async function(req: Request, res: Response){
-     let isValid = await(isValidUser(req))
+     const isValid = await (isValidUser(req))
     if (isValid){
         res.status(200);
         res.cookie('token', 'token')

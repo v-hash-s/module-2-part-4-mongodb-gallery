@@ -42,8 +42,6 @@ var app = express();
 var path = require("path");
 var router = express.Router();
 var login_1 = require("../appLogic/login");
-// let cookieParser = require('cookie-parser')
-// app.use(cookieParser())
 exports.token = {
     'token': 'token',
 };
@@ -52,7 +50,6 @@ exports.users = {
     'vkotikov@flo.team': 'po3FGas8',
     'tpupkin@flo.team': 'tpupkin@flo.team',
 };
-// app.use(express.static(path.join(__dirname, '../static/pages')))
 router.options('/', function (req, res) {
     res.header('Application-Type', 'multipart/form-data');
     res.send();

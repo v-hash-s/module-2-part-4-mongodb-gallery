@@ -7,14 +7,6 @@ const app = express()
 
 import db from './database/connectToMongoDB'
 
-// async function getData(array: any) {
-//   let arr = await newArr
-//   // console.log(arr)
-//   return arr
-// }
-
-// getData(newArr)
-
 import * as mongoose from 'mongoose'
 import { Request, Response } from "express"
 import * as formidableMiddleware from 'express-formidable'

@@ -64,7 +64,6 @@ router.get('/', function (req, res) {
                     return [4 /*yield*/, gallery_1.sendGalleryObject(req)];
                 case 1:
                     objects = _a.sent();
-                    ejsData = {};
                     ejsData = { objects: objects };
                     res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData: ejsData });
                     return [2 /*return*/];
