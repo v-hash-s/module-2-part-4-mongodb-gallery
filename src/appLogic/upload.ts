@@ -1,7 +1,6 @@
 import * as fs from 'fs'
 import * as express from 'express'
 import * as path from 'path'
-import { db } from '../server'
 import ImageModel from '../database/models/ImageSchema'
 
 
@@ -31,8 +30,8 @@ export async function uploadImg(req: any, res: any) {
 }
 
 async function isExist(imagePath: string) {
-    let collection = await db.collection('images')
-    let exist = await collection.findOne({ path: imagePath }, { path: 1 }).then(function (data: any) {
+
+    let exist = await ImageModel.findOne({ path: imagePath }, { path: 1 }).then(function (data: any) {
         if (data) {
             return true
         } else {
