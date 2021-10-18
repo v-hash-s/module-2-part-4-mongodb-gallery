@@ -1,4 +1,5 @@
-require('dotenv').config({ path: '../.env' }) // db
+import * as dotenv from 'dotenv'
+dotenv.config({ path: '../.env' })
 
 import * as path from 'path'
 import * as express from 'express'
@@ -14,25 +15,13 @@ import db from './database/connectToMongoDB'
 
 // getData(newArr)
 
-const mongoose = require("mongoose");
-
+import * as mongoose from 'mongoose'
 import { Request, Response } from "express"
 import * as formidableMiddleware from 'express-formidable'
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 import * as cookieParser from 'cookie-parser'
 
-
-
-// connect to db
-// const dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority'
-// const dbURI = process.env.DB_STRING
-// console.log(dbURI)
-// mongoose.connect(dbURI)
-//   .then((result: any) => app.listen(8080, () => console.log('At 8080 port...')))
-//   .catch((err: any) => console.log(err))
-
-// export const db = mongoose.connection;
 
 db()
   .then(() => console.log('Database connection established'))
@@ -60,14 +49,11 @@ app.use(express.static(path.join(__dirname, '../static/photos')))
 
 app.use('/static/photos/uploads', express.static('../../static/photos/uploads'))
 
-
 app.use(cookieParser())
 
 import loginRouter from './routes/loginRouter'
 import galleryRouter from './routes/galleryRouter'
 import uploadRouter from './routes/uploadRouter'
-
-
 
 
 app.use('/', loginRouter)
