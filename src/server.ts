@@ -7,10 +7,8 @@ const app = express()
 
 import db from './database/connectToMongoDB'
 
-import * as mongoose from 'mongoose'
 import { Request, Response } from "express"
 import * as formidableMiddleware from 'express-formidable'
-import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 import * as cookieParser from 'cookie-parser'
 

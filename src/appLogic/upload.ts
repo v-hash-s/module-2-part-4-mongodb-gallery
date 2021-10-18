@@ -1,5 +1,4 @@
 import * as fs from 'fs'
-import * as express from 'express'
 import * as path from 'path'
 import ImageModel from '../database/models/ImageSchema'
 

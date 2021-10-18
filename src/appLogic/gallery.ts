@@ -1,17 +1,6 @@
-import { IncomingMessage } from "http"
 import { Request } from "express"
-import { basename, dirname } from "path/posix"
-import { GalleryResponse, ErrorMessage  } from "../interfaces"
-import * as util from 'util';
-
-import * as fs from 'fs'
 import * as path from 'path'
-import * as querystring from 'querystring'
-
 import ImageModel from '../database/models/ImageSchema'
-
-const readdir = util.promisify(fs.readdir);
-
 
 export async function sendGalleryObject(req: Request) {
 
@@ -22,8 +11,7 @@ export async function sendGalleryObject(req: Request) {
     const dir = path.join(__dirname, '../../static/photos')
     
     const photos = await getPhotosArray(dir, pageNumber, limit)
-    
-    const total = await getPagesNumber(req)
+
     const galleryResponse = {
         objects: photos,
         total: await getTotal(req)

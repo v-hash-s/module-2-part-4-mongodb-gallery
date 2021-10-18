@@ -1,5 +1,4 @@
-import {Request, Response} from "express";
-import { runInNewContext } from "vm";
+import { Request, Response } from "express";
 
 function authorizationMiddleware(req: Request, res: Response, next: Function) {
     console.log("COOKIES: ", req.cookies.token)

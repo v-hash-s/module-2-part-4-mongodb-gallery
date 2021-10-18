@@ -1,4 +1,4 @@
-import { Token, UsersDB } from '../interfaces'
+import { Token } from '../interfaces'
 import UserModel from '../database/models/UserSchema'
 
 export const token: Token = {

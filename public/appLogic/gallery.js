@@ -37,14 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendGalleryObject = void 0;
-var util = require("util");
-var fs = require("fs");
 var path = require("path");
 var ImageSchema_1 = require("../database/models/ImageSchema");
-var readdir = util.promisify(fs.readdir);
 function sendGalleryObject(req) {
     return __awaiter(this, void 0, void 0, function () {
-        var limit, pageNumber, dir, photos, total, galleryResponse;
+        var limit, pageNumber, dir, photos, galleryResponse;
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -56,14 +53,11 @@ function sendGalleryObject(req) {
                     return [4 /*yield*/, getPhotosArray(dir, pageNumber, limit)];
                 case 1:
                     photos = _b.sent();
-                    return [4 /*yield*/, getPagesNumber(req)];
-                case 2:
-                    total = _b.sent();
                     _a = {
                         objects: photos
                     };
                     return [4 /*yield*/, getTotal(req)];
-                case 3:
+                case 2:
                     galleryResponse = (_a.total = _b.sent(),
                         _a);
                     console.log("GALLERY Response: ", galleryResponse);
