@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.db = void 0;
+require('dotenv').config({ path: '../.env' });
 var path = require("path");
 var express = require("express");
 var app = express();
@@ -64,7 +65,9 @@ var bodyParser = require("body-parser");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
 // connect to db
-var dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority';
+// const dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority'
+var dbURI = process.env.DB_STRING;
+console.log(dbURI);
 mongoose.connect(dbURI)
     .then(function (result) { return app.listen(8080, function () { return console.log('At 8080 port...'); }); })
     .catch(function (err) { return console.log(err); });

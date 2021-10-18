@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '../.env' })
+
 import * as path from 'path'
 import * as express from 'express'
 const app = express()
@@ -26,7 +28,9 @@ import logger from "./logger"
 import ImageModel from './database/models/ImageSchema'
 
 // connect to db
-const dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority'
+// const dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority'
+const dbURI = process.env.DB_STRING
+console.log(dbURI)
 mongoose.connect(dbURI)
   .then((result: any) => app.listen(8080, () => console.log('At 8080 port...')))
   .catch((err: any) => console.log(err))
