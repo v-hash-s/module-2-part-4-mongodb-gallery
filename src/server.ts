@@ -39,14 +39,15 @@ db()
   .then(() => app.listen(process.env.PORT, () => console.log(`At port ${process.env.PORT}`)))
   .catch((err: any) => console.log(err.message))
 
+
 app.use(cors({
   origin: '*'
 }))
 
 
 app.set("view engine", "ejs");
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use('/upload', formidableMiddleware({
   keepExtensions: true,
