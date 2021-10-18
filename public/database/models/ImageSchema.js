@@ -6,5 +6,5 @@ var imageSchema = new Schema({
     path: String,
     metadata: Object
 });
-var ImageModel = mongoose.model('Images', imageSchema);
+var ImageModel = mongoose.model('images', imageSchema);
 exports.default = ImageModel;

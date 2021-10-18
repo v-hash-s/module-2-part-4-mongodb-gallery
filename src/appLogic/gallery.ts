@@ -8,7 +8,6 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as querystring from 'querystring'
 
-import { db } from '../server'
 import ImageModel from '../database/models/ImageSchema'
 
 const readdir = util.promisify(fs.readdir);
@@ -36,10 +35,9 @@ export async function sendGalleryObject(req: Request) {
 }    
 
 async function getPagesNumber(req: Request){
-  let limit = Number(req.query.limit)
-  let collection = await db.collection('images')
+    let limit = Number(req.query.limit)
 
-    let counts = await collection.count()
+    let counts = await ImageModel.count()
     let result = await counts
     let finalResult = await(Math.ceil(result / limit))
     return finalResult
