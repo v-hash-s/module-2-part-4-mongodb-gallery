@@ -39,7 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadImg = void 0;
 var fs = require("fs");
 var path = require("path");
-var server_1 = require("../server");
 var ImageSchema_1 = require("../database/models/ImageSchema");
 function uploadImg(req, res) {
     return __awaiter(this, void 0, void 0, function () {
@@ -80,21 +79,18 @@ function uploadImg(req, res) {
 exports.uploadImg = uploadImg;
 function isExist(imagePath) {
     return __awaiter(this, void 0, void 0, function () {
-        var collection, exist;
+        var exist;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, server_1.db.collection('images')];
+                case 0: return [4 /*yield*/, ImageSchema_1.default.findOne({ path: imagePath }, { path: 1 }).then(function (data) {
+                        if (data) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    })];
                 case 1:
-                    collection = _a.sent();
-                    return [4 /*yield*/, collection.findOne({ path: imagePath }, { path: 1 }).then(function (data) {
-                            if (data) {
-                                return true;
-                            }
-                            else {
-                                return false;
-                            }
-                        })];
-                case 2:
                     exist = _a.sent();
                     return [2 /*return*/, exist];
             }

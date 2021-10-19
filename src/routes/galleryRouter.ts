@@ -1,9 +1,6 @@
 import { Request, Response } from "express"
 import * as express from 'express'
 import * as path from 'path'
-import * as fs from 'fs'
-import * as bodyParser from 'body-parser'
-import * as cors from 'cors'
 import * as cookieParser from 'cookie-parser'
 
 
@@ -23,15 +20,14 @@ router.options('/', (req: Request, res: Response) => {
 })
 
 router.get('/', async function(req: Request, res: Response){
-    let pageNumber = req.query.page;
-    let limit = req.query.limit
+    const pageNumber = req.query.page;
+    const limit = req.query.limit
     if (pageNumber == null || limit == null) {
         res.redirect(`/gallery?page=1&limit=10`)
         return
     } 
-    let objects = await sendGalleryObject(req);
-    let ejsData = {}
-    ejsData = { objects };
+    const objects = await sendGalleryObject(req);
+    const ejsData = { objects };
     res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData })
  });
 

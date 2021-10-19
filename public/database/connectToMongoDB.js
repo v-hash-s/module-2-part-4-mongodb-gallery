@@ -36,26 +36,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var upload_1 = require("../appLogic/upload");
-var express = require("express");
-var router = express.Router();
-router.use(require('../middlewares/auth'));
-router.options('/', function (req, res) {
-    res.header('Application-Type', 'multipart/form-data');
-    res.send();
-});
-router.post('/', function (req, res) {
+var mongoose = require("mongoose");
+var dotenv = require("dotenv");
+dotenv.config({ path: '../../.env' });
+function db() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, upload_1.uploadImg(req, res)];
-                case 1:
-                    _a.sent();
-                    res.status(302);
-                    res.redirect('/gallery' + '?page=' + req.fields.pageNumInForm + "&limit=" + req.fields.limitNumInForm);
-                    return [2 /*return*/];
+                case 0:
+                    console.log('Connecting database . . .');
+                    if (!process.env.MONGODB_URI) return [3 /*break*/, 2];
+                    return [4 /*yield*/, mongoose.connect(process.env.MONGODB_URI)];
+                case 1: return [2 /*return*/, _a.sent()];
+                case 2: throw new Error('mongodb URI is not defined');
             }
         });
     });
-});
-exports.default = router;
+}
+exports.default = db;

@@ -37,15 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendGalleryObject = void 0;
-var util = require("util");
-var fs = require("fs");
 var path = require("path");
-var server_1 = require("../server");
 var ImageSchema_1 = require("../database/models/ImageSchema");
-var readdir = util.promisify(fs.readdir);
 function sendGalleryObject(req) {
     return __awaiter(this, void 0, void 0, function () {
-        var limit, pageNumber, dir, photos, total, galleryResponse;
+        var limit, pageNumber, dir, photos, galleryResponse;
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -57,14 +53,11 @@ function sendGalleryObject(req) {
                     return [4 /*yield*/, getPhotosArray(dir, pageNumber, limit)];
                 case 1:
                     photos = _b.sent();
-                    return [4 /*yield*/, getPagesNumber(req)];
-                case 2:
-                    total = _b.sent();
                     _a = {
                         objects: photos
                     };
                     return [4 /*yield*/, getTotal(req)];
-                case 3:
+                case 2:
                     galleryResponse = (_a.total = _b.sent(),
                         _a);
                     console.log("GALLERY Response: ", galleryResponse);
@@ -76,23 +69,17 @@ function sendGalleryObject(req) {
 exports.sendGalleryObject = sendGalleryObject;
 function getPagesNumber(req) {
     return __awaiter(this, void 0, void 0, function () {
-        var limit, collection, counts, result, finalResult;
+        var limit, counts, finalResult;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     limit = Number(req.query.limit);
-                    return [4 /*yield*/, server_1.db.collection('images')];
+                    return [4 /*yield*/, ImageSchema_1.default.count()
+                        // const finalResult = await (Math.ceil(counts / limit))
+                    ];
                 case 1:
-                    collection = _a.sent();
-                    return [4 /*yield*/, collection.count()];
-                case 2:
                     counts = _a.sent();
-                    return [4 /*yield*/, counts];
-                case 3:
-                    result = _a.sent();
-                    return [4 /*yield*/, (Math.ceil(result / limit))];
-                case 4:
-                    finalResult = _a.sent();
+                    finalResult = Math.ceil(counts / limit);
                     return [2 /*return*/, finalResult];
             }
         });

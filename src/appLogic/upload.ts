@@ -1,14 +1,12 @@
 import * as fs from 'fs'
-import * as express from 'express'
 import * as path from 'path'
-import { db } from '../server'
 import ImageModel from '../database/models/ImageSchema'
 
 
 export async function uploadImg(req: any, res: any) {
     if (req.files.photo.size != '0') {
         console.log(req.files.photo.name)
-        let isPresent: any = await isExist(req.files.photo.name)
+        const isPresent: any = await isExist(req.files.photo.name)
         console.log('IS REAL: ', isPresent)
         if (isPresent) {
             return
@@ -17,8 +15,8 @@ export async function uploadImg(req: any, res: any) {
             console.log("CONTINUED")
 
             fs.renameSync(req.files.photo.path, path.join(__dirname, "../../static/photos/", req.files.photo.name))
-            let img = req.files.photo.name
-            let stats = fs.statSync(path.join(__dirname, `../../static/photos/${img}`))
+            const img = req.files.photo.name
+            const stats = fs.statSync(path.join(__dirname, `../../static/photos/${img}`))
             const image = new ImageModel({
                 path: img,
                 metadata: stats
@@ -31,8 +29,8 @@ export async function uploadImg(req: any, res: any) {
 }
 
 async function isExist(imagePath: string) {
-    let collection = await db.collection('images')
-    let exist = await collection.findOne({ path: imagePath }, { path: 1 }).then(function (data: any) {
+
+    const exist = await ImageModel.findOne({ path: imagePath }, { path: 1 }).then(function (data: any) {
         if (data) {
             return true
         } else {

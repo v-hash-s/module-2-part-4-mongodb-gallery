@@ -37,27 +37,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendToken = exports.isValidUser = exports.token = void 0;
-var server_1 = require("../server");
+var UserSchema_1 = require("../database/models/UserSchema");
 exports.token = {
     'token': 'token',
 };
 function isValidUser(req) {
     return __awaiter(this, void 0, void 0, function () {
-        var collection, data;
+        var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    collection = server_1.db.collection('users');
-                    return [4 /*yield*/, collection.findOne({ email: req.body.email }, { email: 1, password: 1 }).then(function (data) {
-                            if (data) {
-                                if (data.email === req.body.email && data.password === req.body.password) {
-                                    return true;
-                                }
-                                else {
-                                    return false;
-                                }
+                case 0: return [4 /*yield*/, UserSchema_1.default.findOne({ email: req.body.email }, { email: 1, password: 1 }).then(function (data) {
+                        if (data) {
+                            if (data.email === req.body.email && data.password === req.body.password) {
+                                return true;
                             }
-                        })];
+                            else {
+                                return false;
+                            }
+                        }
+                    })];
                 case 1:
                     data = _a.sent();
                     console.log(data);

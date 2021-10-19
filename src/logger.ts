@@ -2,7 +2,7 @@ import {NextFunction, Request, Response} from "express";
 import * as log from 'simple-node-logger'
 import {Logger} from "simple-node-logger";
 
-let logInfo: Logger = log.createRollingFileLogger({
+const logInfo: Logger = log.createRollingFileLogger({
     errorEventName: 'error',
     logDirectory: '../logs',
     fileNamePattern: 'logFile-<DATE>.log',

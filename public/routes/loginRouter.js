@@ -42,8 +42,6 @@ var app = express();
 var path = require("path");
 var router = express.Router();
 var login_1 = require("../appLogic/login");
-// let cookieParser = require('cookie-parser')
-// app.use(cookieParser())
 exports.token = {
     'token': 'token',
 };
@@ -52,7 +50,6 @@ exports.users = {
     'vkotikov@flo.team': 'po3FGas8',
     'tpupkin@flo.team': 'tpupkin@flo.team',
 };
-// app.use(express.static(path.join(__dirname, '../static/pages')))
 router.options('/', function (req, res) {
     res.header('Application-Type', 'multipart/form-data');
     res.send();
@@ -65,13 +62,13 @@ router.post('/', function (req, res) {
         var isValid;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, ((0, login_1.isValidUser)(req))];
+                case 0: return [4 /*yield*/, (login_1.isValidUser(req))];
                 case 1:
                     isValid = _a.sent();
                     if (isValid) {
                         res.status(200);
                         res.cookie('token', 'token');
-                        res.send((0, login_1.sendToken)());
+                        res.send(login_1.sendToken());
                     }
                     else {
                         res.status(401);

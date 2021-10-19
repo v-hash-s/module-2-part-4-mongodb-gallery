@@ -36,9 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require('fs');
-var path = require('path');
-var util = require('util');
+var fs = require("fs");
+var util = require("util");
+var path = require("path");
 var readdir = util.promisify(fs.readdir);
 var images = readdir(path.join(__dirname, '../../static/photos'));
 console.log(path.join(__dirname, '../../static/photos'));
@@ -53,8 +53,8 @@ function getData(images) {
                 case 1:
                     asyncImages = _a.sent();
                     _loop_1 = function (img) {
-                        return __generator(this, function (_b) {
-                            switch (_b.label) {
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
                                 case 0: return [4 /*yield*/, new Promise(function (resolve, reject) {
                                         fs.stat(path.resolve(path.join(__dirname, "../../static/photos/" + img)), function (err, data) {
                                             if (err) {
@@ -66,7 +66,7 @@ function getData(images) {
                                         });
                                     })];
                                 case 1:
-                                    _b.sent();
+                                    _a.sent();
                                     return [2 /*return*/];
                             }
                         });
